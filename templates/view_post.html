@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Post</title>
+    <style>
+        img {
+            max-width: 300px;
+            height: auto;
+        }
+        div.post {
+            border: 1px violet;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Post Details</h2>
+    <div class="post">
+        <h3>{{ post.content_type|capitalize }} Post</h3>
+
+        {% if post.content_type == 'text' %}
+            <p>{{ post.content }}</p>
+        {% else %}
+            <img src="{{ url_for('static', filename='uploads/' + post.image_path) }}" alt="Image">
+        {% endif %}
+
+        <p>Sentiment / Emotion: {{ post.sentiment }}</p>
+    </div>
+
+    <br>
+    <a href="{{ url_for('index') }}">Back to All Posts</a>
+</body>
+</html>

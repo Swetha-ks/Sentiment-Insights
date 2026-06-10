@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Sentiment Prediction</title>
+</head>
+<body>
+    <h2>Text Sentiment Prediction</h2>
+    <form method="post">
+        <label for="text">Enter Text:</label>
+        <textarea id="text" name="text" required></textarea>
+        <br>
+        <button type="submit">Predict Sentiment</button>
+    </form>
+    {% if text %}
+        <h3>Text:</h3>
+        <p>{{ text }}</p>
+        <h3>Sentiment:</h3>
+        <p>{{ sentiment }}</p>
+    {% endif %}
+</body>
+</html>

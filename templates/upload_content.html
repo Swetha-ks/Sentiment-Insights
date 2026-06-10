@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Content</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: violet;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        select, textarea, input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #4a4aff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3737d6;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #4a4aff;
+            font-weight: bold;
+        }
+
+        img {
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Upload Content</h2>
+
+    <form method="post" enctype="multipart/form-data">
+
+        <label>Content Type:</label>
+        <select id="content_type" name="content_type" required>
+            <option value="text">Text</option>
+            <option value="image">Image</option>
+        </select>
+
+        <div id="text-content">
+            <label>Enter Text:</label>
+            <textarea name="text_content" placeholder="Type something..."></textarea>
+        </div>
+
+        <div id="image-content" style="display:none;">
+            <label>Upload Image:</label>
+            <input type="file" name="image_content" accept="image/*">
+        </div>
+
+        <button type="submit">Upload</button>
+
+    </form>
+
+    <!-- RESULT DISPLAY -->
+    {% if content_type == 'text' %}
+        <h3>Text:</h3>
+        <p>{{ text }}</p>
+
+        <h3>Sentiment:</h3>
+        <p>{{ sentiment }}</p>
+
+    {% elif content_type == 'image' %}
+        <h3>Image:</h3>
+        <img src="data:image/jpeg;base64,{{ image_data }}" width="150" />
+
+        <h3>Emotion:</h3>
+        <p>{{ emotion_prediction }}</p>
+    {% endif %}
+
+    <!-- BACK BUTTON -->
+    <a href="{{ url_for('index') }}" class="back-btn">⬅ Back to Home</a>
+
+</div>
+
+<script>
+    const contentType = document.getElementById('content_type');
+    const textDiv = document.getElementById('text-content');
+    const imageDiv = document.getElementById('image-content');
+
+    function toggleFields() {
+        if (contentType.value === 'text') {
+            textDiv.style.display = 'block';
+            imageDiv.style.display = 'none';
+        } else {
+            textDiv.style.display = 'none';
+            imageDiv.style.display = 'block';
+        }
+    }
+
+    contentType.addEventListener('change', toggleFields);
+
+    // Run once on page load
+    toggleFields();
+</script>
+
+</body>
+</html>
