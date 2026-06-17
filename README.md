@@ -36,7 +36,4 @@ It integrates TensorFlow models, NLTK sentiment analysis, and SQLAlchemy for dat
 3.Run the app:
   python app.py
 
-Notes
-Add a .gitignore to exclude large model files (*.h5, *.pkl) and local databases (*.db).
-For production, move sensitive configs (like SECRET_KEY) to environment variables.
 
